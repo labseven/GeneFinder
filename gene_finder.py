@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-YOUR HEADER COMMENT HERE
+Mini Project 1: Gene Finder
 
-@author: YOUR NAME HERE
+@author: Adam Novotny
 
 """
 
@@ -30,7 +30,17 @@ def get_complement(nucleotide):
     >>> get_complement('C')
     'G'
     """
-    # TODO: implement this
+    if(nucleotide == 'A'):
+        return 'T'
+    elif(nucleotide == 'T'):
+        return 'A'
+    elif(nucleotide == 'C'):
+        return 'G'
+    elif(nucleotide == 'G'):
+        return 'C'
+    else:
+        raise ValueError("get_complement() only accepts ['A','T','C','G'] as input. You input '" + nucleotide + "'.")
+
     pass
 
 
