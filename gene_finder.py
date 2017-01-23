@@ -32,16 +32,19 @@ def get_complement(nucleotide):
     >>> get_complement('t')
     'A'
     """
-    if(nucleotide == 'A'):
-        return 'T'
-    elif(nucleotide == 'T'):
-        return 'A'
-    elif(nucleotide == 'C'):
-        return 'G'
-    elif(nucleotide == 'G'):
-        return 'C'
-    else:
-        raise ValueError("get_complement() only accepts ['A','T','C','G'] as input. You input '" + nucleotide + "'.")
+    nucleotideList = ['A', 'C', 'T', 'G']
+    return nucleotideList[(nucleotideList.index(nucleotide.upper()) + 2) % 4]
+
+    # if(nucleotide == 'A'):
+    #     return 'T'
+    # elif(nucleotide == 'T'):
+    #     return 'A'
+    # elif(nucleotide == 'C'):
+    #     return 'G'
+    # elif(nucleotide == 'G'):
+    #     return 'C'
+    # else:
+    #     raise ValueError("get_complement() only accepts ['A','T','C','G'] as input. You input '" + nucleotide + "'.")
 
 
 def get_reverse_complement(dna):
