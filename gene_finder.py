@@ -55,9 +55,9 @@ def get_reverse_complement(dna):
     >>> get_reverse_complement("CCGCGTTCA")
     'TGAACGCGG'
     """
-    reverseDNA = get_complement(dna[-1:])
-    for i in range(2, len(dna)):
-        reverseDNA += get_complement(dna[-i:-i+1])
+    reverseDNA = ""
+    for i in reversed(dna):
+        reverseDNA += get_complement(i)
 
     return reverseDNA
 
