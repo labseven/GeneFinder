@@ -10,6 +10,9 @@ import random
 from amino_acids import aa, codons, aa_table   # you may find these useful
 from load import load_seq
 
+stop_codons = 10
+start_codon = 3
+
 
 def shuffle_string(s):
     """Shuffles the characters in the input string
@@ -83,15 +86,16 @@ def rest_of_ORF(dna):
     ValueError: Sequence must begin with ATG.
     """
 
-    if(dna[:3].upper() != "ATG"):
+    if(dna[:3].upper() != codons[start_codon][0]):
         raise ValueError("Sequence must begin with ATG.")
 
     for i in range(int(len(dna) / 3)):
-        if(dna[i*3:(i+1)*3] in codons[10]):
+        if(dna[i*3:(i+1)*3] in codons[stop_codons]):
             return dna[:i*3]
 
     return dna
-#
+
+
 # def find_all_ORFs_oneframe(dna):
 #     """ Finds all non-nested open reading frames in the given DNA
 #         sequence and returns them as a list.  This function should
@@ -105,8 +109,12 @@ def rest_of_ORF(dna):
 #     >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
 #     ['ATGCATGAATGTAGA', 'ATGTGCCC']
 #     """
-#     # TODO: implement this
-#     pass
+#
+#     for i in range(int(len(dna) / 3)):
+#         if(dna[:3]):
+#             pass
+#
+#
 #
 #
 # def find_all_ORFs(dna):
