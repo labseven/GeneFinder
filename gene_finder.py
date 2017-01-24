@@ -65,22 +65,32 @@ def get_reverse_complement(dna):
     return reverseDNA
 
 
-# def rest_of_ORF(dna):
-#     """ Takes a DNA sequence that is assumed to begin with a start
-#         codon and returns the sequence up to but not including the
-#         first in frame stop codon.  If there is no in frame stop codon,
-#         returns the whole string.
-#
-#         dna: a DNA sequence
-#         returns: the open reading frame represented as a string
-#     >>> rest_of_ORF("ATGTGAA")
-#     'ATG'
-#     >>> rest_of_ORF("ATGAGATAGG")
-#     'ATGAGA'
-#     """
-#     # TODO: implement this
-#     pass
-#
+def rest_of_ORF(dna):
+    """ Takes a DNA sequence that is assumed to begin with a start
+        codon and returns the sequence up to but not including the
+        first in frame stop codon.  If there is no in frame stop codon,
+        returns the whole string.
+
+        dna: a DNA sequence
+        returns: the open reading frame represented as a string
+    >>> rest_of_ORF("ATGTGAA")
+    'ATG'
+    >>> rest_of_ORF("ATGAGATAGG")
+    'ATGAGA'
+    >>> rest_of_ORF("Rekd")
+    Traceback (most recent call last):
+        ...
+    ValueError: Sequence must begin with ATG.
+    """
+
+    if(dna[:3].upper() != "ATG"):
+        raise ValueError("Sequence must begin with ATG.")
+
+    for i in range(int(len(dna) / 3)):
+        if(dna[i*3:(i+1)*3] in codons[10]):
+            return dna[:i*3]
+
+    return dna
 #
 # def find_all_ORFs_oneframe(dna):
 #     """ Finds all non-nested open reading frames in the given DNA
