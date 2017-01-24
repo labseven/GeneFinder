@@ -108,11 +108,23 @@ def find_all_ORFs_oneframe(dna):
         returns: a list of non-nested ORFs
     >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
     ['ATGCATGAATGTAGA', 'ATGTGCCC']
+    >>> find_all_ORFs_oneframe("CATGAATGTAGATAGATGTGCCC")
+    ['ATGTGCCC']
+    >>> find_all_ORFs_oneframe("CATGAATGTAGAATGATGTGCCC")
+    ['ATGATGTGCCC']
     """
 
-    for i in range(int(len(dna) / 3)):
+    orfs = []
+
+    i = 0
+    while(i < int(len(dna) / 3)):
         if(dna[i*3:(i+1)*3] in codons[start_codon]):
-            pass
+            # print("Found codon at ", i*3, dna[i*3:])
+            orfs.append(rest_of_ORF(dna[i*3:]))
+            i = dna.index(orfs[-1])
+        i += 1
+
+    return orfs
 
 #
 #
