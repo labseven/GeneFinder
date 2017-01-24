@@ -86,7 +86,7 @@ def rest_of_ORF(dna):
     ValueError: Sequence must begin with ATG.
     """
 
-    if(dna[:3].upper() != codons[start_codon][0]):
+    if(dna[:3].upper() not in codons[start_codon]):
         raise ValueError("Sequence must begin with ATG.")
 
     for i in range(int(len(dna) / 3)):
@@ -96,24 +96,24 @@ def rest_of_ORF(dna):
     return dna
 
 
-# def find_all_ORFs_oneframe(dna):
-#     """ Finds all non-nested open reading frames in the given DNA
-#         sequence and returns them as a list.  This function should
-#         only find ORFs that are in the default frame of the sequence
-#         (i.e. they start on indices that are multiples of 3).
-#         By non-nested we mean that if an ORF occurs entirely within
-#         another ORF, it should not be included in the returned list of ORFs.
-#
-#         dna: a DNA sequence
-#         returns: a list of non-nested ORFs
-#     >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
-#     ['ATGCATGAATGTAGA', 'ATGTGCCC']
-#     """
-#
-#     for i in range(int(len(dna) / 3)):
-#         if(dna[:3]):
-#             pass
-#
+def find_all_ORFs_oneframe(dna):
+    """ Finds all non-nested open reading frames in the given DNA
+        sequence and returns them as a list.  This function should
+        only find ORFs that are in the default frame of the sequence
+        (i.e. they start on indices that are multiples of 3).
+        By non-nested we mean that if an ORF occurs entirely within
+        another ORF, it should not be included in the returned list of ORFs.
+
+        dna: a DNA sequence
+        returns: a list of non-nested ORFs
+    >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
+    ['ATGCATGAATGTAGA', 'ATGTGCCC']
+    """
+
+    for i in range(int(len(dna) / 3)):
+        if(dna[i*3:(i+1)*3] in codons[start_codon]):
+            pass
+
 #
 #
 #
