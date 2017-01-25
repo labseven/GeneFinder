@@ -152,19 +152,23 @@ def find_all_ORFs(dna):
         orfs = orfs + find_all_ORFs_oneframe(dna[i:])
 
     return orfs
-#
-#
-# def find_all_ORFs_both_strands(dna):
-#     """ Finds all non-nested open reading frames in the given DNA sequence on both
-#         strands.
-#
-#         dna: a DNA sequence
-#         returns: a list of non-nested ORFs
-#     >>> find_all_ORFs_both_strands("ATGCGAATGTAGCATCAAA")
-#     ['ATGCGAATG', 'ATGCTACATTCGCAT']
-#     """
-#     # TODO: implement this
-#     pass
+
+
+def find_all_ORFs_both_strands(dna):
+    """ Finds all non-nested open reading frames in the given DNA sequence on both
+        strands.
+
+        dna: a DNA sequence
+        returns: a list of non-nested ORFs
+    >>> find_all_ORFs_both_strands("ATGCGAATGTAGCATCAAA")
+    ['ATGCGAATG', 'ATGCTACATTCGCAT']
+    """
+
+    orfs = find_all_ORFs(dna)
+    orfs = orfs + find_all_ORFs(get_reverse_complement(dna))
+
+    return orfs
+
 #
 #
 # def longest_ORF(dna):
