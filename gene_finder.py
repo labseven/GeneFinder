@@ -169,16 +169,15 @@ def find_all_ORFs_both_strands(dna):
 
     return orfs
 
-#
-#
-# def longest_ORF(dna):
-#     """ Finds the longest ORF on both strands of the specified DNA and returns it
-#         as a string
-#     >>> longest_ORF("ATGCGAATGTAGCATCAAA")
-#     'ATGCTACATTCGCAT'
-#     """
-#     # TODO: implement this
-#     pass
+
+def longest_ORF(dna):
+    """ Finds the longest ORF on both strands of the specified DNA and returns it
+        as a string
+    >>> longest_ORF("ATGCGAATGTAGCATCAAA")
+    'ATGCTACATTCGCAT'
+    """
+
+    return max(find_all_ORFs_both_strands(dna))
 #
 #
 # def longest_ORF_noncoding(dna, num_trials):
