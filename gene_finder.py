@@ -108,6 +108,8 @@ def find_all_ORFs_oneframe(dna):
         returns: a list of non-nested ORFs
     >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
     ['ATGCATGAATGTAGA', 'ATGTGCCC']
+    >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGGGGATGTGCCC")
+    ['ATGCATGAATGTAGA', 'ATGTGCCC']
     >>> find_all_ORFs_oneframe("CATGAATGTAGATAGATGTGCCC")
     ['ATGTGCCC']
     >>> find_all_ORFs_oneframe("CATGAATGTAGAATGATGTGCCC")
@@ -117,18 +119,20 @@ def find_all_ORFs_oneframe(dna):
     orfs = []
 
     i = 0
-    while(i < int(len(dna) / 3)):
-        if(dna[i*3:(i+1)*3] in codons[start_codon]):
+    while(i < len(dna)):
+        print(i, dna[i:])
+        if(dna[i:(i+3)] in codons[start_codon]):
             # print("Found codon at ", i*3, dna[i*3:])
-            orfs.append(rest_of_ORF(dna[i*3:]))
-            i = dna.index(orfs[-1])
-        i += 1
+            orfs.append(rest_of_ORF(dna[i:]))
+            # print("Found codon", orfs[-1])
+            # print("i is at", i, ". Skipping ahead", len(orfs[-1]))
+            i += len(orfs[-1])
+        else:
+            i += 3
 
     return orfs
 
-#
-#
-#
+
 # def find_all_ORFs(dna):
 #     """ Finds all non-nested open reading frames in the given DNA sequence in
 #         all 3 possible frames and returns them as a list.  By non-nested we
@@ -141,9 +145,21 @@ def find_all_ORFs_oneframe(dna):
 #
 #     >>> find_all_ORFs("ATGCATGAATGTAG")
 #     ['ATGCATGAATGTAG', 'ATGAATGTAG', 'ATG']
+#     >>> find_all_ORFs("CATGAATGTAGAATGATGTGCCC")
+#     ['ATGATGTGCCC']
 #     """
-#     # TODO: implement this
-#     pass
+#     orfs = []
+#
+#     i = 0
+#     while(i < len(dna)-2):
+#         print(i, dna[i:])
+#         if(dna[i:(i+3)] in codons[start_codon]):
+#             # print("Found codon at ", i, dna[i:])
+#             orfs.append(rest_of_ORF(dna[i:]))
+#             i += len(orfs[-1])
+#         i += 1
+#
+#     return orfs
 #
 #
 # def find_all_ORFs_both_strands(dna):
