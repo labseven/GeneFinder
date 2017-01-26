@@ -191,22 +191,6 @@ def longest_ORF(dna):
 # pass
 #
 #
-def dna_to_AA(dna):
-    """ Computes the AA encoded by thee sequence of values
-        dna: three letters
-        returns: AA letter
-        >>> dna_to_AA('ATG')
-        'M'
-    """
-
-    if(len(dna) != 3):
-        raise ValueError("DNA must be three letters long")
-
-    for i in codons:
-        if(dna in i):
-            return(aa[codons.index(i)])
-
-    raise ValueError("DNA not in codons")
 
 
 def coding_strand_to_AA(dna):
@@ -224,24 +208,24 @@ def coding_strand_to_AA(dna):
         'MPA'
     """
 
-    aa = ""
+    amino_strand = ""
     i = 0
     while(i < (len(dna) - len(dna) % 3)):  # modulo three to remove trailing aa fragments
-        aa = aa + dna_to_AA(dna[i:i+3])
+        amino_strand = amino_strand + aa_table[dna[i:i+3]]
+        # print(aa_table[dna[i:i+3]])
         i += 3
 
-    return aa
+    return amino_strand
 
-#
-#
-# def gene_finder(dna):
-#     """ Returns the amino acid sequences that are likely coded by the specified dna
-#
-#         dna: a DNA sequence
-#         returns: a list of all amino acid sequences coded by the sequence dna.
-#     """
-#     # TODO: implement this
-#     pass
+
+def gene_finder(dna):
+    """ Returns the amino acid sequences that are likely coded by the specified dna
+
+        dna: a DNA sequence
+        returns: a list of all amino acid sequences coded by the sequence dna.
+    """
+
+    pass
 
 
 if __name__ == "__main__":
