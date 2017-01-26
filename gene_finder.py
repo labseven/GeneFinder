@@ -227,14 +227,21 @@ def coding_strand_to_AA(dna):
     return amino_strand
 
 
-def gene_finder(dna):
+def gene_finder(dna, threshold=None):
     """ Returns the amino acid sequences that are likely coded by the specified dna
 
         dna: a DNA sequence
         returns: a list of all amino acid sequences coded by the sequence dna.
     """
 
-    pass
+    if threshold is None:
+        threshold = longest_ORF_noncoding(dna, 1500)
+
+    print("Threshold:", threshold)
+    all_ORFs = [orf for orf in find_all_ORFs_both_strands(dna) if len(orf) > threshold]
+    print("ORFs:", all_ORFs)
+    all_AA = [coding_strand_to_AA(dna) for dna in all_ORFs]
+    print("AAs:", all_AA)
 
 
 if __name__ == "__main__":
