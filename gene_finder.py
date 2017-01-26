@@ -199,9 +199,14 @@ def dna_to_AA(dna):
         'M'
     """
 
+    if(len(dna) != 3):
+        raise ValueError("DNA must be three letters long")
+
     for i in codons:
         if(dna in i):
             return(aa[codons.index(i)])
+
+    raise ValueError("DNA not in codons")
 
 
 def coding_strand_to_AA(dna):
@@ -220,8 +225,9 @@ def coding_strand_to_AA(dna):
     """
 
     aa = ""
+    i = 0
     while(i < len(dna)):
-        pass
+        aa = aa + dna_to_AA(dna[i:i+3])
 
 #
 #
