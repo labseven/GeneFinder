@@ -177,20 +177,29 @@ def longest_ORF(dna):
     'ATGCTACATTCGCAT'
     """
 
-    return max(find_all_ORFs_both_strands(dna))
+    all_ORFs = find_all_ORFs_both_strands(dna)
+    if(all_ORFs):
+        return max(find_all_ORFs_both_strands(dna))
+
+    return ""
 
 
-# def longest_ORF_noncoding(dna, num_trials):
-# """ Computes the maximum length of the longest ORF over num_trials shuffles
-#     of the specfied DNA sequence
-#
-#     dna: a DNA sequence
-#     num_trials: the number of random shuffles
-#     returns: the maximum length longest ORF """
-# # TODO: implement this
-# pass
-#
-#
+def longest_ORF_noncoding(dna, num_trials):
+    """ Computes the maximum length of the longest ORF over num_trials shuffles
+    of the specfied DNA sequence
+
+    dna: a DNA sequence
+    num_trials: the number of random shuffles
+    returns: the maximum length longest ORF
+    """
+
+    max_length = 0
+    for i in range(num_trials):
+        test_length = len(longest_ORF(shuffle_string(dna)))
+        if(test_length > max_length):
+            max_length = test_length
+
+    return max_length
 
 
 def coding_strand_to_AA(dna):
