@@ -178,35 +178,51 @@ def longest_ORF(dna):
     """
 
     return max(find_all_ORFs_both_strands(dna))
-#
-#
+
+
 # def longest_ORF_noncoding(dna, num_trials):
-#     """ Computes the maximum length of the longest ORF over num_trials shuffles
-#         of the specfied DNA sequence
+# """ Computes the maximum length of the longest ORF over num_trials shuffles
+#     of the specfied DNA sequence
 #
-#         dna: a DNA sequence
-#         num_trials: the number of random shuffles
-#         returns: the maximum length longest ORF """
-#     # TODO: implement this
-#     pass
+#     dna: a DNA sequence
+#     num_trials: the number of random shuffles
+#     returns: the maximum length longest ORF """
+# # TODO: implement this
+# pass
 #
 #
-# def coding_strand_to_AA(dna):
-#     """ Computes the Protein encoded by a sequence of DNA.  This function
-#         does not check for start and stop codons (it assumes that the input
-#         DNA sequence represents an protein coding region).
-#
-#         dna: a DNA sequence represented as a string
-#         returns: a string containing the sequence of amino acids encoded by the
-#                  the input DNA fragment
-#
-#         >>> coding_strand_to_AA("ATGCGA")
-#         'MR'
-#         >>> coding_strand_to_AA("ATGCCCGCTTT")
-#         'MPA'
-#     """
-#     # TODO: implement this
-#     pass
+def dna_to_AA(dna):
+    """ Computes the AA encoded by thee sequence of values
+        dna: three letters
+        returns: AA letter
+        >>> dna_to_AA('ATG')
+        'M'
+    """
+
+    for i in codons:
+        if(dna in i):
+            return(aa[codons.index(i)])
+
+
+def coding_strand_to_AA(dna):
+    """ Computes the Protein encoded by a sequence of DNA.  This function
+        does not check for start and stop codons (it assumes that the input
+        DNA sequence represents an protein coding region).
+
+        dna: a DNA sequence represented as a string
+        returns: a string containing the sequence of amino acids encoded by the
+                 the input DNA fragment
+
+        >>> coding_strand_to_AA("ATGCGA")
+        'MR'
+        >>> coding_strand_to_AA("ATGCCCGCTTT")
+        'MPA'
+    """
+
+    aa = ""
+    while(i < len(dna)):
+        pass
+
 #
 #
 # def gene_finder(dna):
