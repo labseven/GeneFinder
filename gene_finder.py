@@ -226,8 +226,11 @@ def coding_strand_to_AA(dna):
 
     aa = ""
     i = 0
-    while(i < len(dna)):
+    while(i < (len(dna) - len(dna) % 3)):  # modulo three to remove trailing aa fragments
         aa = aa + dna_to_AA(dna[i:i+3])
+        i += 3
+
+    return aa
 
 #
 #
