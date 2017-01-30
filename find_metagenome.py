@@ -2,6 +2,7 @@ from load import load_nitrogenase_seq, load_metagenome
 import time
 
 debug = 0
+python_vers = 2
 
 
 def print_debug(*str):
@@ -50,23 +51,33 @@ def longest_common_substring(str1, str2):
     return ret
 
 
-def find_all_substrings(genomes, sequence, range_to_try=-1):
+def find_all_substrings(genomes, sequence):
     """ Iterates through all genomes and searches for the longest substring of the sequence in each """
-    time_sum = 0
-    time_curr = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID)
+
+    if(python_vers == 3):
+        time_curr = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID)
+    else:
+        time_curr = time.clock()
     print(time_curr)
 
-    if(range_to_try == -1):
-        range_to_try = range(len(genomes))
+    genomes_len = len(genomes)
 
-    for i in range_to_try:
-        print(longest_common_substring(genomes[i][1], sequence))
-        time_last = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID) - time_curr
-        time_curr = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID)
+    substrings = []
 
-        print('[', time_last, 's] [total: ', time_curr, 's]', sep='',)
+    for i in range(genomes_len):
+        substrings.append(longest_common_substring(genomes[i][1], sequence))
 
-    # print("Total time:", time_sum)
+        if(python_vers == 3):
+            time_last = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID) - time_curr
+            time_curr = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID)
+            # print('[', time_last, 's] [total: ', time_curr, 's]', sep='') # Needs to be commented out for pypy
+
+        else:
+            time_last = time.clock() - time_curr
+            time_curr = time.clock()
+            print i, '/', genomes_len, '[', time_last, 's] [total: ', time_curr, 's]'
+
+    return substrings
 
 
 if __name__ == "__main__":
@@ -76,4 +87,4 @@ if __name__ == "__main__":
     metagenome = load_metagenome()
     nitrogenase = load_nitrogenase_seq()
 
-    find_all_substrings(metagenome, nitrogenase)
+    print(find_all_substrings(metagenome[:50], nitrogenase))
