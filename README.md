@@ -1,2 +1,2 @@
 # GeneFinder
-This is the base repository for the gene-finder mini project.
+Adam Novotny's Gene Finder project for SoftDes 2017.
