@@ -1,0 +1,8 @@
+first 100 substring finder:
+
+threads:  time:
+1  53
+2  35
+3  48
+4  57
+5  72

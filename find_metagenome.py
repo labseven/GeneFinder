@@ -41,37 +41,36 @@ def longest_common_substring(str1, str2):
     return ret
 
 
-def find_all_substrings(genomes, sequence):
+def find_all_substrings(genomes):
     """ Iterates through all genomes and searches for the longest substring of the sequence in each """
 
-    time_curr = time.clock()
-    print(time_curr)
+    # print genomes[1]
+    # print
+    # print '*' * 50
 
-    genomes_len = len(genomes)
+    time_curr = time.time()
 
-    substrings = []
+    substrings = [genomes[0]]
+    substrings.append(longest_common_substring(genomes[1], nitrogenase))
 
-    for i in range(genomes_len):
-        substrings.append(longest_common_substring(genomes[i][1], sequence))
-
-        # time_last = time.clock() - time_curr
-        # time_curr = time.clock()
-        # print i, '/', genomes_len, '[', time_last, 's] [total: ', time_curr, 's]'
-
+    print time.time() - time_curr
     return substrings
 
-def find_all_substrings_multiprocessed(genomes, sequence):
-    p = Pool(int(len(genomes)/10))
+def find_all_substrings_multiprocessed(genomes):
+    pool = Pool(num_threads)
+    return pool.map(find_all_substrings, genomes)
 
-    
 
 if __name__ == "__main__":
     # import doctest
     # doctest.testmod()
 
+    # Highest speed is at 2
+    num_threads = 2
     metagenome = load_metagenome()
     nitrogenase = load_nitrogenase_seq()
 
-
-    print(find_all_substrings(metagenome[:100], nitrogenase))
-    print(time.clock())
+    time_start = time.time()
+    print find_all_substrings_multiprocessed(metagenome[:100])
+    print time.time() - time_start
+    print "Threads: ", num_threads
