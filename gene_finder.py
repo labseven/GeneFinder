@@ -198,6 +198,7 @@ def longest_ORF_noncoding(dna, num_trials):
         test_length = len(longest_ORF(shuffle_string(dna)))
         if(test_length > max_length):
             max_length = test_length
+            print(i, max_length)
 
     return max_length
 
@@ -239,11 +240,15 @@ def gene_finder(dna, threshold=None):
 
     print("Threshold:", threshold)
     all_ORFs = [orf for orf in find_all_ORFs_both_strands(dna) if len(orf) > threshold]
-    print("ORFs:", all_ORFs)
+    # print("ORFs:", all_ORFs)
     all_AA = [coding_strand_to_AA(dna) for dna in all_ORFs]
     print("AAs:", all_AA)
 
 
 if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+    # import doctest
+    # doctest.testmod()
+
+    dna = load_seq("./data/X73525.fa")
+
+    gene_finder(dna)
