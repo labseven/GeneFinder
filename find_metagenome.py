@@ -1,13 +1,10 @@
 from load import load_nitrogenase_seq, load_metagenome
 import time
+from multiprocessing import Pool
 
-debug = 0
-python_vers = 2
+""" Multithread version. For python2.7, pypy
 
-
-def print_debug(*str):
-    if(debug):
-        print(str)
+Base time: 57s"""
 
 
 def longest_common_substring(str1, str2):
@@ -37,16 +34,9 @@ def longest_common_substring(str1, str2):
                 if(length_substring[i][j] > cur_longest):
                     cur_longest = length_substring[i][j]
                     ret = [str1[i - cur_longest + 1:i + 1]]
-                    print_debug("Found new longest:", cur_longest, "At:", i, j)
-                    print_debug(str1[i - cur_longest + 1:i + 1], i - cur_longest + 1, i + 1)
+
                 elif(length_substring[i][j] == cur_longest):
                     ret.append(str1[i - cur_longest + 1:i + 1])
-                    print_debug("Found another string at:", i, j)
-                    print_debug(str1[i - cur_longest + 1:i + 1], i - cur_longest + 1, i + 1)
-
-    if(debug):
-        for i in range(len(str1)):
-            print(length_substring[i])
 
     return ret
 
@@ -54,10 +44,7 @@ def longest_common_substring(str1, str2):
 def find_all_substrings(genomes, sequence):
     """ Iterates through all genomes and searches for the longest substring of the sequence in each """
 
-    if(python_vers == 3):
-        time_curr = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID)
-    else:
-        time_curr = time.clock()
+    time_curr = time.clock()
     print(time_curr)
 
     genomes_len = len(genomes)
@@ -67,18 +54,16 @@ def find_all_substrings(genomes, sequence):
     for i in range(genomes_len):
         substrings.append(longest_common_substring(genomes[i][1], sequence))
 
-        if(python_vers == 3):
-            time_last = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID) - time_curr
-            time_curr = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID)
-            # print('[', time_last, 's] [total: ', time_curr, 's]', sep='') # Needs to be commented out for pypy
-
-        else:
-            time_last = time.clock() - time_curr
-            time_curr = time.clock()
-            print i, '/', genomes_len, '[', time_last, 's] [total: ', time_curr, 's]'
+        # time_last = time.clock() - time_curr
+        # time_curr = time.clock()
+        # print i, '/', genomes_len, '[', time_last, 's] [total: ', time_curr, 's]'
 
     return substrings
 
+def find_all_substrings_multiprocessed(genomes, sequence):
+    p = Pool(int(len(genomes)/10))
+
+    
 
 if __name__ == "__main__":
     # import doctest
@@ -87,4 +72,6 @@ if __name__ == "__main__":
     metagenome = load_metagenome()
     nitrogenase = load_nitrogenase_seq()
 
-    print(find_all_substrings(metagenome[:50], nitrogenase))
+
+    print(find_all_substrings(metagenome[:100], nitrogenase))
+    print(time.clock())
