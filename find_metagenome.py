@@ -52,17 +52,19 @@ def longest_common_substring(str1, str2):
 
 def find_all_substrings(genomes, sequence, range_to_try=-1):
     """ Iterates through all genomes and searches for the longest substring of the sequence in each """
-    # time_sum = 0
-    # time.perf_counter()
+    time_sum = 0
+    time_curr = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID)
+    print(time_curr)
 
     if(range_to_try == -1):
         range_to_try = range(len(genomes))
 
     for i in range_to_try:
         print(longest_common_substring(genomes[i][1], sequence))
-        # time_curr = time.perf_counter()
-        # time_sum += time_curr
-        # print('[', time_curr, 's] [total: ', time_sum, 's]', sep='',)
+        time_last = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID) - time_curr
+        time_curr = time.clock_gettime(time.CLOCK_PROCESS_CPUTIME_ID)
+
+        print('[', time_last, 's] [total: ', time_curr, 's]', sep='',)
 
     # print("Total time:", time_sum)
 
